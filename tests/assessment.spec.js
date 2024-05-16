@@ -36,3 +36,34 @@ test('testcase 1', async()=>{
     await expect( page.getByRole('button', { name: 'Deja Brady' })).toBeVisible();
     await expect(page.getByRole('heading',{name:'**** **** **** 1234'})).toBeVisible();
 });
+
+//Test Case 2: Search Order
+test('testcase 2', async()=>{
+
+    //Navigation:
+    await page.getByRole('button', { name: 'order' }).click();
+    await page.getByRole('button', { name: 'list' }).click();
+ 
+    //Actions:
+    await page.getByPlaceholder('Search customer or order').fill('cor');
+ 
+    //Validation:
+    await expect(page.getByText('Cortez Herring')).toBeVisible();
+    await expect(page.getByText('1–1 of 1')).toBeVisible();
+ });
+ 
+ //Test Case 3: Filter Jobs
+ test('testcase 3', async () => {
+ 
+     //Navigation:
+     await page.getByRole('button', { name: 'job' }).click();
+     await page.getByRole('button', { name: 'list' }).click();
+     await page.getByRole('button', { name: 'Filters' }).click();
+     
+     //Actions:
+     await page.getByLabel('On Demand').check();
+     await page.getByRole('button').nth(1).click();
+ 
+     //Validation:
+     await expect(page.getByRole('button', { name: 'On Demand' })).toBeVisible();
+ });
