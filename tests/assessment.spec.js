@@ -18,6 +18,7 @@ test.afterEach(async()=>{
   await page.getByRole('menuitem', { name: 'Logout' }).click();
 
 });
+
 //Test Case 1:Update Billing Information
 test('testcase 1', async()=>{
 
@@ -65,5 +66,37 @@ test('testcase 2', async()=>{
      await page.getByRole('button').nth(1).click();
  
      //Validation:
-     await expect(page.getByRole('button', { name: 'On Demand' })).toBeVisible();
+     await expect(page.getByRole('button', { name: 'On Demand' })).toBeVisible(); 
  });
+
+ //Test Case 4: Send Chat Message
+test('testcase 4', async () => {
+
+  //Navigation:
+  await page.getByRole('button', { name: 'chat' }).click();
+
+  //Actions:
+  await page.getByRole('button', { name: 'Deja Brady Deja Brady You:' }).click();
+  await page.getByPlaceholder('Type a message').fill('Hello, how are you?');
+  await page.getByPlaceholder('Type a message').press('Enter');
+
+  //Validation:
+  await expect(page.getByText('Hello, how are you?', { exact: true })).toBeVisible();
+
+});
+
+//Test Case 5: Delete Files
+test('testcase 5', async () => {
+
+  //Navigation:
+  await page.getByRole('button', { name: 'File Manager' }).click();
+
+  //Actions:
+  await page.getByRole('row', { name: 'Name sorted ascending Size' }).getByRole('checkbox').check();
+  await page.getByLabel('Delete').click();
+  await page.getByRole('button', { name: 'Delete' }).click();
+ 
+  //Validation:
+  await expect(page.getByText('Delete success!')).toBeVisible(); 
+  await expect(page.getByText('No Data')).toBeVisible();
+});
